@@ -45,7 +45,7 @@ msgid "end"
 msgstr "Ende"
 
 #: base/models/content.py:97 base/models/content.py:174
-msgid "Period"
+msgid
 msgstr "Zeitraum"
 
 #: base/models/content.py:98

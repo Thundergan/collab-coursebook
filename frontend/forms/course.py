@@ -35,7 +35,7 @@ class AddCourseForm(forms.ModelForm):
         """
         model = Course
         fields = ['title', 'description', 'image', 'owners',
-                  'restrict_changes', 'category', 'period']
+                  'restrict_changes', 'category', 'period', 'restrict_view']
         widgets = {
             'image': ModifiedClearableFileInput(attrs={'required': 'false'})
         }
@@ -56,7 +56,7 @@ class EditCourseForm(HistoryForm):
     """
 
     field_order = ['title', 'description', 'image',
-                   'owners', 'restrict_changes', 'category', 'period', 'change_log']
+                   'owners', 'restrict_changes', 'category', 'period', 'change_log', 'restrict_view']
 
     # Default value for pk is -1: if this value gets overwritten the form
     # Edits the existing course with the title in the database
@@ -76,7 +76,7 @@ class EditCourseForm(HistoryForm):
 
         model = Course
         fields = ['title', 'description', 'image', 'owners',
-                  'restrict_changes', 'category', 'period']
+                  'restrict_changes', 'category', 'period', 'restrict_view']
         widgets = {
             'image': ModifiedClearableFileInput(attrs={'required': 'false'})
         }

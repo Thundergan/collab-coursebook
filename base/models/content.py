@@ -108,6 +108,65 @@ class Period(models.Model):
         """
         return self.title
 
+class ViewRestriction(models.Model):
+    """ViewRestriction
+
+    This model represents the visability of a course book. A restriction contains a CharField representing
+    the chosen visability for a course book.
+
+    :attr ViewRestriction.restriction: The visability of a course
+    :type ViewRestriction.restriction: CharField
+    """
+    # Trying with Choices --> works
+
+    PUBLIC = "PU"
+    STUDENTS = "ST"
+    PRIVATE = "PV"
+    RESTRICTION_CHOICES = {
+        (PUBLIC, "Public"),
+        (STUDENTS, "Student Only"),
+        (PRIVATE, "Private"),
+    }
+    restriction = models.CharField(max_length=150,
+                                   choices = RESTRICTION_CHOICES,
+                                   default = PUBLIC)
+
+    #Trying with Enumeration
+    """
+    class RestrictionEnum(models.TextChoices):
+        PUBLIC = "PU", _("Public")
+        STUDENTS = "ST", _("Students Only")
+        PRIVATE = "PR", _("Private")
+
+    restriction = models.CharField(max_length=2,
+                                   choices = RestrictionEnum,
+                                   default = RestrictionEnum.STUDENTS,)
+
+    """
+
+    class Meta:
+            """Meta options
+
+            This class handles all possible meta options that you can give to this model.
+
+            :attr Meta.verbose_name: A human-readable name for the object in singular
+            :type Meta.verbose_name: __proxy__
+            :attr Meta.ordering: The default ordering for the object
+            :type Meta.ordering: list[str]
+            """
+            verbose_name = _("View Restriction")
+            #ordering = ['restriction']
+
+    def __str__(self):
+        """String representation
+
+        Returns the string representation of this object.
+
+        :return: the string representation of this object
+        :rtype: str
+        """
+        return restriction
+
 
 class Course(models.Model):
     """Course
@@ -176,6 +235,16 @@ class Course(models.Model):
                                blank=True,
                                null=True,
                                on_delete=models.SET_NULL)
+
+    """restrict_view = models.BooleanField(verbose_name=_("View Restriction"),
+                                                     help_text=_("This course is restricted and can only be viewed by myself"),
+                                                     default=False)"""
+
+    restrict_view = models.ForeignKey(ViewRestriction,
+                                      verbose_name=_("View Restriction"),
+                                      related_name="courses",
+                                      blank=False,
+                                      on_delete=models.PROTECT)
 
     class Meta:
         """Meta options
