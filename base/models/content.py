@@ -125,7 +125,7 @@ class ViewRestriction(models.Model):
     RESTRICTION_CHOICES = {
         (PUBLIC, "Public"),
         (STUDENTS, "Student Only"),
-        (PRIVATE, "Private"),
+        (PRIVATE, "Private")
     }
     restriction = models.CharField(max_length=150,
                                    choices = RESTRICTION_CHOICES,
@@ -155,7 +155,7 @@ class ViewRestriction(models.Model):
             :type Meta.ordering: list[str]
             """
             verbose_name = _("View Restriction")
-            #ordering = ['restriction']
+            ordering = ['restriction']
 
     def __str__(self):
         """String representation
@@ -165,7 +165,7 @@ class ViewRestriction(models.Model):
         :return: the string representation of this object
         :rtype: str
         """
-        return restriction
+        return self.restriction
 
 
 class Course(models.Model):

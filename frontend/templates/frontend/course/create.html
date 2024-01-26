@@ -1,8 +1,4 @@
 {% extends 'frontend/base_logged_in.html' %}
-frontend/course/create.html
-AddCourseForm
-CreateView
-Period
 {# Load the tag library #}
 {% load django_bootstrap5  %}
 {% load i18n %}
@@ -19,6 +15,26 @@ Period
 
 {% block content %}
     <h1>{% trans 'Create a new course' %}</h1>
+
+    <!-- Tried with a HTML Dropdown Menu
+    <div class="col-md-auto my-auto">
+         <button class="dropdown btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             {% trans 'View Restriction' %} {{ restriction }}
+         </button>
+         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="{% url 'frontend:add-course'%}">
+                  Public
+              </a>
+              <a class="dropdown-item" href="{% url 'frontend:add-course' %}">
+                 Student Only
+              </a>
+              <a class="dropdown-item" href="{% url 'frontend:add-course' %}">
+                 Private
+              </a>
+          </div>
+    </div>
+    -->
 
     {# Course form #}
     <form method="post" class="post-form" enctype=multipart/form-data>
