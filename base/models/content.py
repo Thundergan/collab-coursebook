@@ -155,6 +155,7 @@ class ViewRestriction(models.Model):
             :type Meta.ordering: list[str]
             """
             verbose_name = _("View Restriction")
+            verbose_name_plural = _("Restrictions")
             ordering = ['restriction']
 
     def __str__(self):

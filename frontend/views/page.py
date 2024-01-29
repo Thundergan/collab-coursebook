@@ -27,7 +27,25 @@ class StartView(TemplateView):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect("frontend:dashboard")
-        return super().dispatch(request, *args, **kwargs)
+        else:
+            return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        """Context data
+
+        Gets the context data of the view which can be accessed in
+        the html templates.
+
+        :param kwargs: The additional arguments
+        :type kwargs: dict[str, Any]
+
+        :return: the context data
+        :rtype: dict[str, Any]
+        """
+        context = super().get_context_data(**kwargs)
+        context["periods"] = Period.objects.all()
+        context["categories"] = Category.objects.all()
+        return context
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
@@ -41,7 +59,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "frontend/dashboard.html"
 
     def dispatch(self, request, *args, **kwargs):
-        if DATA_PROTECTION_REQURE_CONFIRMATION \
+        if DATA_PROTECTION_REQUIRE_CONFIRMATION \
                 and request.user.is_authenticated \
                 and not request.user.profile.accepted_privacy_note:
             return redirect(reverse_lazy("frontend:privacy_accept"))

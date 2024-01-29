@@ -43,5 +43,33 @@
         </div>
     </div>
 
+<!-- Display of category and period card containing public courses -->
+{% block public_course_list %}
+    <p style="color: #000000;font-size: 2em;margin-top:1em;">
+    </p>
+
+    <!-- Display of period cards containing public courses -->
+    <h3 class="text-info" style="margin-top: 40px;margin-left: 40px;">
+       {% fa6_icon 'school' 'fas' %} {% trans 'Public Courses by Term' %}
+    </h3>
+    <div class="row" style="margin-left: 40px;">
+       {% for period in periods %}
+       {% include 'frontend/course_lists/card_period.html' %}
+       {% endfor %}
+    </div>
+
+    <!-- Display of category cards containing public courses -->
+    <h3 class="text-warning" style="margin-top: 40px;margin-left: 40px;">
+       {% fa6_icon 'school' 'fas' %} {% trans 'Public Courses by Category' %}
+    </h3>
+    <div class="row" style="margin-left: 40px;">
+       {% for category in categories %}
+       {% cycle 'bg-warning' 'bg-success' 'bg-info' 'bg-primary' as bgcolor silent %}
+       {% include 'frontend/course_lists/card_category.html' %}
+       {% endfor %}
+    </div>
+
+{% endblock %}
+
     <div class="container-fluid" style="height: 20vh;"></div>
 {% endblock %}
