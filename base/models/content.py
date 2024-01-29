@@ -119,9 +119,9 @@ class ViewRestriction(models.Model):
     """
     # Trying with Choices --> works
 
-    PUBLIC = "PU"
-    STUDENTS = "ST"
-    PRIVATE = "PV"
+    PUBLIC = "Public"
+    STUDENTS = "Student Only"
+    PRIVATE = "Private"
     RESTRICTION_CHOICES = {
         (PUBLIC, "Public"),
         (STUDENTS, "Student Only"),
@@ -131,18 +131,6 @@ class ViewRestriction(models.Model):
                                    choices = RESTRICTION_CHOICES,
                                    default = PUBLIC)
 
-    #Trying with Enumeration
-    """
-    class RestrictionEnum(models.TextChoices):
-        PUBLIC = "PU", _("Public")
-        STUDENTS = "ST", _("Students Only")
-        PRIVATE = "PR", _("Private")
-
-    restriction = models.CharField(max_length=2,
-                                   choices = RestrictionEnum,
-                                   default = RestrictionEnum.STUDENTS,)
-
-    """
 
     class Meta:
             """Meta options
@@ -178,7 +166,7 @@ class Course(models.Model):
     stored.
 
     A course can contain categories and is assigned by topics. Besides, a period of the course
-    can also be defined.
+    can also be defined. On top of that, the permission who can view the course will also be stored.
 
     :attr Course.title: The title of the course
     :type Course.title: CharField
@@ -198,6 +186,8 @@ class Course(models.Model):
     :type Course.category: ForeignKey - Category
     :attr Course.period: The period of the course
     :type Course.period: ForeignKey - Period
+    :attr Course.restrict_view: The restriction who can view the course
+    :type Course.restrict_view: ForeignKey - ViewRestriction
     """
     title = models.CharField(max_length=200,
                              verbose_name=_("Title"),
@@ -236,10 +226,6 @@ class Course(models.Model):
                                blank=True,
                                null=True,
                                on_delete=models.SET_NULL)
-
-    """restrict_view = models.BooleanField(verbose_name=_("View Restriction"),
-                                                     help_text=_("This course is restricted and can only be viewed by myself"),
-                                                     default=False)"""
 
     restrict_view = models.ForeignKey(ViewRestriction,
                                       verbose_name=_("View Restriction"),

@@ -8,7 +8,7 @@ Contents can be added to or modified for the various content types.
 from django.contrib import admin
 
 from .models import Category, Content, Comment, Course
-from .models import CourseStructureEntry, Favorite, Period, Profile
+from .models import CourseStructureEntry, Favorite, Period, Profile, ViewRestriction
 from .models import Rating, Tag, Topic
 
 
@@ -138,3 +138,11 @@ class TopicAdmin(admin.ModelAdmin):
 
     Represents the topic model in the admin panel.
     """
+
+@admin.register(ViewRestriction)
+class ViewRestrictionAdmin(admin.ModelAdmin):
+    """ViewRestriction admin
+
+    Represents the view restriction model in the admin panel.
+    """
+    list_display = ['restriction']

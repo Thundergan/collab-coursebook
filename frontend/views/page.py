@@ -59,7 +59,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "frontend/dashboard.html"
 
     def dispatch(self, request, *args, **kwargs):
-        if DATA_PROTECTION_REQUIRE_CONFIRMATION \
+        if DATA_PROTECTION_REQURE_CONFIRMATION \
                 and request.user.is_authenticated \
                 and not request.user.profile.accepted_privacy_note:
             return redirect(reverse_lazy("frontend:privacy_accept"))
