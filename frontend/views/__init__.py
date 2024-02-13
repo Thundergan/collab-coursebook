@@ -8,9 +8,11 @@ from .content import ContentView
 from .content import rate_content
 
 from .course import CourseView, AddCourseView, EditCourseStructureView, CourseDeleteView
+from .public_course import CourseViewPublic
 
 from .coursebook import add_to_coursebook
 from .courses import CourseListView, CourseListForCategoryView, CourseListForPeriodView
+from .public_courses import CourseListViewPublic, CourseListForCategoryViewPublic, CourseListForPeriodViewPublic
 
 from .comment import EditComment, DeleteComment
 

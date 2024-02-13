@@ -18,7 +18,7 @@ app_name = "frontend"
 
 urlpatterns = [
     path('',
-         include([
+        include([
         re_path(r'^(?P<sort>date-new|date-old|title-a|title-z)/$',
                 views.StartView.as_view(),
                 name='public-courses-sort'),
@@ -42,6 +42,9 @@ urlpatterns = [
          views.AcceptPrivacyNoteView.as_view(),
          name='privacy_accept'),
     path('profile/<int:pk>/', include([
+        path('',
+             views.CourseViewPublic.as_view(),
+             name='public_course'),
         path('',
              views.ProfileView.as_view(),
              name='profile'),
