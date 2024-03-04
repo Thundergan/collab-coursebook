@@ -682,6 +682,8 @@ class GeneralURL(BaseContentModel):
     :type GeneralURL.DESC: __proxy__
     :attr GeneralURL.url: The given general url
     :type GeneralURL.url: URLField
+    :attr GeneralURL.title: The given clear name of a general url
+    :type GenerURL.title: TextField
     """
     TYPE = "GeneralURL"
     DESC = _("General URL")

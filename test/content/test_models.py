@@ -87,3 +87,33 @@ class PanoptoVideoContentTestCase(MediaTestCase): # pylint: disable=too-few-publ
         filtered_contents = model.PanoptoVideoContent.filter_by_own_type(contents)
 
         self.assertIn(panopto_video, filtered_contents)
+
+
+class GeneralURLTestCase(MediaTestCase):
+    """GeneralURL test case
+
+    Defines the test cases for the model GeneralURL.
+
+    """
+    def test_str_method(self):
+        """Test __str__ method
+
+        Tests the __str__ method of GeneralURL.
+
+        """
+        general_url = model.GeneralURL(url='https://www.google.com/', title='Google')
+        self.assertEqual(str(general_url), 'https://www.google.com/')
+
+    def test_filter_by_own_type(self):
+        """Test filter_by_own_type method
+
+        Tests the filter_by_own_type method of GeneralURL.
+
+        """
+        general_url = model.GeneralURL(url='https://www.google.com/', title='Google')
+        general_url.save()
+
+        all_contents = model.Content.objects.all()
+        filtered_contents = model.GeneralURL.filter_by_own_type(all_contents)
+
+        self.assertTrue(all(isinstance(content, model.GeneralURL) for content in filtered_contents))

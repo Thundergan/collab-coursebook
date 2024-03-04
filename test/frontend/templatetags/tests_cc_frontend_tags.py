@@ -3,7 +3,7 @@
 This file contains the test cases for /export/templatetags/cc_export_tags.py
 """
 
-from frontend.templatetags.cc_frontend_tags import js_escape, format_seconds, check_approve_content_permission
+from frontend.templatetags.cc_frontend_tags import js_escape, format_seconds, check_approve_content_permission, generalurl_title, generalurl_image
 from datetime import timedelta
 from django.test import TestCase
 
@@ -70,3 +70,51 @@ class CheckApproveContentPermissionTestCase(TestCase):
         result = check_approve_content_permission(request.user, self.course)
 
         self.assertFalse(result)  # Modify this assertion based on your expected behavior
+
+class GeneralURLTitleTestCase(TestCase):
+    """GeneralURL Title test case
+
+    Defines the test cases for the function generalurl_title.
+
+    """
+    def test_generalurl_title_valid(self):
+        """
+        Tests that generalurl_title gives the correct title for a valid input.
+        """
+        url = 'https://www.google.com/'
+        expected_result = 'Google'
+        result = generalurl_title(url)
+        self.assertEqual(result, expected_result)
+
+    def test_generalurl_title_invalid(self):
+        """
+        Tests that generalurl_title gives invalid back for an invalid input.
+        """
+        url = 'invalid'
+        expected_result = 'invalid'
+        result = generalurl_title(url)
+        self.assertEqual(result, expected_result)
+
+class GeneralURLImageTestCase(TestCase):
+    """GeneralURL Image test case
+
+    Defines the test cases for the function generalurl_image.
+
+    """
+    def test_generalurl_image_valid(self):
+        """
+        Tests that generalurl_image gives the correct url for an image for a valid input.
+        """
+        url = 'https://www.youtube.com/'
+        expected_result = 'https://www.youtube.com/img/desktop/yt_1200.png'
+        result = generalurl_image(url)
+        self.assertEqual(result, expected_result)
+
+    def test_generalurl_image_invalid(self):
+        """
+        Tests that generalurl_image gives back invalid for an invalid input.
+        """
+        url = 'invalid'
+        expected_result = 'invalid'
+        result = generalurl_image(url)
+        self.assertEqual(result, expected_result)

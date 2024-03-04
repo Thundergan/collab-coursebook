@@ -126,3 +126,32 @@ class AddMDTestCase(TestCase):
         test_form = form.AddMD(data=form_data)
         self.assertFalse(test_form.is_valid())
         self.assertEqual(test_form.errors['__all__'], ["You must put in some text."])
+
+
+class AddGeneralURLTestCase(TestCase):
+    """ AddGeneralURL form test case
+
+    Defines the test cases for the form AddGeneralURL, specifically the inputs.
+
+    """
+    def test_valid_inputs(self):
+        """
+        Tests if valid inputs are recognized as such.
+        """
+        form_data = {
+            'url': 'https://www.google.com/',
+            'title': 'Test Title',
+        }
+        test_form = form.AddGeneralURL(data=form_data)
+        self.assertTrue(test_form.is_valid())
+        
+    def test_invalid_inputs(self):
+        """
+        Tests if invalid inputs are recognized as such.
+        """
+        form_data = {
+            'url': 'asdf',
+            'title': '',
+        }
+        test_form = form.AddGeneralURL(data=form_data)
+        self.assertFalse(test_form.is_valid())

@@ -90,3 +90,26 @@ class ValidatorTestCase(MediaTestCase):
             Validator.validate_anki_file(invalid_file)
         self.assertEqual('Unsupported file type.', context_manager.exception.message)
 
+    def test_validate_generalurl_valid_url(self):
+        """Test validate_generalurl - valid URL
+
+        Tests that the function validate_generalurl does not raise a ValidationError
+        for a valid GeneralURL.
+
+        """
+        url = 'https://www.google.com/'
+        try:
+            Validator.validate_general_url(url)
+        except ValidationError:
+            self.fail("validate_general_url raised ValidationError unexpectedly.")
+
+    def test_validate_generalurl_invalid_url(self):
+        """Test validate_generalurl - invalid url
+
+        Tests that the function validate_generalurl does raise a ValidationError
+        for an invalid GeneralURL.
+
+        """
+        url = 'invalid'
+        with self.assertRaises(ValidationError):
+            Validator.validate_general_url(url)
